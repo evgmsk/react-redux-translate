@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 function translator (defaultLanguage, storeLanguageKey, path, log = 0) {
     if (arguments.length < 3)
         throw new Error("Function 'translator' require at least three arguments. The first one must be default language. The second one must be language key in the store - the same as passed with 'connect'. The third one must be path from the root of the project (directory contained node-modules) to 'i18n' directory (directory contained 'json' language files)");
@@ -56,7 +54,7 @@ function translator (defaultLanguage, storeLanguageKey, path, log = 0) {
             return insertions.reduce((acc, ins) => acc.replace('{{}}', ins), string)
         }
         return string;
-    };
+    }
     
     translate.source = i18nLang;
 
