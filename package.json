@@ -1,0 +1,47 @@
+{
+  "name": "react-redux-translate",
+  "version": "1.0.0",
+  "description": "provide i18n translate using react-redux state",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evgmsk/react-redux-translate.git"
+  },
+  "engines": {
+    "node": "8.9.4"
+  },
+  "keywords": [
+    "react",
+    "react-redux",
+    "i18n",
+    "translate"
+  ],
+  "author": "evgmsk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/evgmsk/issues"
+  },
+  "homepage": "https://github.com/evgmsk/react-redux-translate#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "@loadable/babel-plugin": "^5.8.0",
+    "@loadable/webpack-plugin": "^5.7.1",
+    "autoprefixer": "^9.4.7",
+    "babel-loader": "^8.0.5"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-redux": "latest",
+    "redux": "latest"
+  }
+}
