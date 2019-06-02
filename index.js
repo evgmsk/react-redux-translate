@@ -3,6 +3,7 @@
 function translator (defaultLanguage, storeLanguageKey, path) {
     if (arguments.length < 3)
         throw new Error("Function 'translator' require at least three arguments default language, language key in the store, path from the root of the project (directory contained node-modules) to 'i18n' directory");
+    
     function Lang(defaultLanguage, path) {
         this.path = path;
         this.lang = defaultLanguage;

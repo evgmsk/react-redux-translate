@@ -39,7 +39,7 @@
     
  Insert as React Component with required properties
   
-    <div><T keys="home.title" insertion={[Mary, John]} /><div>
+    <div><T keys="home.title" insertions={['Mary', 'John']} /><div>
   
  'Keys' property can be either string with dot delimiter or array of string.
  'Insertions' property must be an array of string.
