@@ -11,12 +11,6 @@
 ## Usage
  Create Translate instance allowed in any place within the src directory.
   
- * First argument 'defaultLanguage' must correspond name of the JSON file in i18n directory.
- * Second argument 'languageKeyInState' must correspond name language key in the redux state.
- * Third argument 'pathToI18nDirectory' path form root of project (level of node-modules directory) 
- to 'i18n' directory.
-    
-    
     import React from 'react';
     import { connect } from 'react-redux';
     import translate from './common/react-redux-translate';
@@ -24,6 +18,15 @@
     let T = translate('defaultLanguage', 'languageKeyInState', 'pathToI18nDirectory');
     
     export default T = connect(state => ({languageKeyInState: state.languageKeyInState}))(T);
+    
+ Keep in mind
+ 
+    1. 'defaultLanguage' must correspond name of the JSON file in i18n directory.
+    
+    2. 'languageKeyInState' must correspond name language key in the redux state.
+    
+    3.  'pathToI18nDirectory' path form root of project (level of node-modules directory) 
+     to 'i18n' directory.
     
    
  If pure string needed to insert as the function argument

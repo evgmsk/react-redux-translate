@@ -1,64 +1,55 @@
-function translator (defaultLanguage, storeLanguageKey, path, log = 0) {
-    if (arguments.length < 3)
-        throw new Error("Function 'translator' require at least three arguments. The first one must be default language. The second one must be language key in the store - the same as passed with 'connect'. The third one must be path from the root of the project (directory contained node-modules) to 'i18n' directory (directory contained 'json' language files)");
-    class Language {
-        constructor(defaultLanguage, path) {
-            this.lang = defaultLanguage;
-            this.path = path;
-            this.defineSource(defaultLanguage);
-            if (log) console.log(this);
-        }
+'use strict';
 
-        defineSource(lang) {
-            this.langSource = require(`../../${this.path}${lang}.json`);
-            this.lang = lang;
-        }
+function translator (defaultLanguage, storeLanguageKey, path) {
+    if (arguments.length < 3)
+        throw new Error("Function 'translator' require at least three arguments default language, language key in the store, path from the root of the project (directory contained node-modules) to 'i18n' directory");
+    function Lang(defaultLanguage, path) {
+        this.path = path;
+        this.lang = defaultLanguage;
+        this.defineSource(defaultLanguage);
     }
 
-    const i18nLang = new Language(defaultLanguage, path);
+    Lang.prototype.defineSource = function(lang) {
+        this.langSource = require(`../../${this.path}${lang}.json`);
+        this.lang = lang;
+    };
+
+    const i18n = new Lang(defaultLanguage, path);
 
     function translate(props) {
-        let source;
-        let string = i18nLang.langSource;
+        translate.i18n = i18n;
         let {keys, insertions = []} = props;
         let lang = props[storeLanguageKey];
+        let result = '';
         if (!lang) {
-            throw new Error('Property "language" is undefined')
+            throw new Error('Property "language key" required react-redux-translate is undefined')
         }
         if (!keys) {
-            throw new Error('Property "keys" (path to value) is undefined')
+            throw new Error('Property "keys" required react-redux-translate instance (path to value) is undefined')
         }
-        const Keys = (Array.isArray(keys) && keys) || (typeof keys === 'string' && keys.split('\.'));
-        if (!Keys || !Keys.length)
-            throw new Error("Invalid 'keys' property passed to react-redux-translate! 'Keys' must be array or string with keys and dots as delimiters");
-        if (lang !== i18nLang.lang) {
-            i18nLang.defineSource(lang);
+       keys = (Array.isArray(keys) && keys) || (typeof keys === 'string' && keys.split('\.'));
+        if (!keys || !keys.length)
+            throw new Error("Invalid 'keys' property passed to react-redux-translate instance.");
+        if (lang !== i18n.lang) {
+            i18n.defineSource(lang);
         }
-        source = i18nLang.langSource;
-
-        if (!source || (source && typeof source !== 'object' && !source[Keys[0]])) {
-            throw new Error("Obtained language source is not valid.");
-        }
-
+        const source = i18n.langSource;
         try {
-            string = Keys.reduce((acc, key) => acc[key], source);
+            result = keys.reduce((acc, key) => acc[key], source);
         }catch(err) {
             console.error(err);
             throw new Error("Invalid props passed to react-redux-translate. Obtained language source is not valid.")
         }
-
-        if (typeof string !== 'string') {
-            throw new Error(`Invalid 'keys' property passed to react-redux-translate! Value to return ${JSON.stringify(string)} Keys ${JSON.stringify(keys)}`);
+        if (typeof result !== 'string') {
+            throw new Error(`Invalid 'keys' property passed to react-redux-translate! Value to return ${JSON.stringify(result)}, Keys ${JSON.stringify(keys)}`);
         }
         if (insertions.length) {
             return insertions.reduce((acc, ins) => acc.replace('{{}}', ins), string)
         }
-        return string;
+        return result;
     }
-    
-    translate.source = i18nLang;
 
     return translate;
 }
 
-export default translator;
+module.exports = translator;
