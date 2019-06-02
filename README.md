@@ -9,7 +9,9 @@
     $ npm i --save react-redux-translate
 
 ## Usage
- Create Translate instance allowed in any place within the src directory.
+
+### Create instance
+ Create Translate instance in any place within the src directory.
   
     import React from 'react';
     import { connect } from 'react-redux';
@@ -18,6 +20,10 @@
     let T = translate('defaultLanguage', 'languageKeyInState', 'pathToI18nDirectory');
     
     export default T = connect(state => ({languageKeyInState: state.languageKeyInState}))(T);
+
+If pure string needed to insert as the function argument
+    
+    export const funcT = ({keys, insertions = []}) => <T keys={keys} insertions={insertions} />;
     
  Keep in mind
  
@@ -29,10 +35,8 @@
      to 'i18n' directory.
     
    
- If pure string needed to insert as the function argument
-    
-    export const funcT = ({keys, insertions = []}) => <T keys={keys} insertions={insertions} />;
-    
+ ### Instance usage
+ 
  Import T where needed
  
     import T from 'pathToInstance';
