@@ -43,8 +43,11 @@ If pure string needed to insert as the function argument
     
  Insert as React Component with required properties
   
-    <div><T keys="home.title" insertions={['Mary', 'John']} /><div>
+    <div><T keys="home.title" /><div>
   
  'Keys' property can be either string with dot delimiter or array of string.
- 'Insertions' property must be an array of string.
+ If you would like to add some words to a translated string use 'insertions' property and add placeholders ${} to the source string. `insertions` must be an array of string.
+ For example, for string in english `const home = { title: "Meet ${} and ${} at GitHub" }`
+ <div><T keys="home.title" insertions={['Mary', 'John']} /><div> 
+ You will get 'Meet Mary and John at GitHub'.
    
