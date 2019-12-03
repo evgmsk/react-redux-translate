@@ -57,7 +57,7 @@ For example, if you have `en-EN` JSON file with property
    
 and you set follow params to the `<T/>`component
 
-      `<div><T keys="home.event" insertions=['Mary', 'John'] /><div>`
+      `<div><T keys="home.event" insertions={['Mary', 'John']} /><div>`
 
  you will get **"`Meet Mary and John at GitHub`"** string inside `div`. 
    

@@ -1,6 +1,6 @@
 {
   "name": "react-redux-translate",
-  "version": "1.0.2",
+  "version": "1.0.2.1",
   "description": "provide i18n translate using react-redux state",
   "main": "index.js",
   "scripts": {
