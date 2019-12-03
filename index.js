@@ -6,7 +6,6 @@ function translator (defaultLanguage, storeLanguageKey, path) {
     
     function Lang(defaultLanguage, path) {
         this.path = path;
-        this.lang = defaultLanguage;
         this.defineSource(defaultLanguage);
     }
 
@@ -28,15 +27,14 @@ function translator (defaultLanguage, storeLanguageKey, path) {
         if (!keys) {
             throw new Error('Property "keys" required react-redux-translate instance (path to value) is undefined')
         }
-       keys = (Array.isArray(keys) && keys) || (typeof keys === 'string' && keys.split('\.'));
+        keys = (Array.isArray(keys) && keys) || (typeof keys === 'string' && keys.split('\.'));
         if (!keys || !keys.length)
             throw new Error("Invalid 'keys' property passed to react-redux-translate instance.");
         if (lang !== i18n.lang) {
             i18n.defineSource(lang);
         }
-        const source = i18n.langSource;
         try {
-            result = keys.reduce((acc, key) => acc[key], source);
+            result = keys.reduce((acc, key) => acc[key], i18n.langSource);
         }catch(err) {
             console.error(err);
             throw new Error("Invalid props passed to react-redux-translate. Obtained language source is not valid.")
@@ -45,7 +43,7 @@ function translator (defaultLanguage, storeLanguageKey, path) {
             throw new Error(`Invalid 'keys' property passed to react-redux-translate! Value to return ${JSON.stringify(result)}, Keys ${JSON.stringify(keys)}`);
         }
         if (insertions.length) {
-            return insertions.reduce((acc, ins) => acc.replace('${}', ins), string)
+            return insertions.reduce((acc, ins) => acc.replace('${}', ins), result)
         }
         return result;
     }

@@ -2,7 +2,7 @@
 
 ## Features
 
-* Provide changing the language of the page accordingly with changing Redux state property
+*Easy Internationalization for your react app
 
 ## Installing
 
@@ -15,9 +15,9 @@
   
     import React from 'react';
     import { connect } from 'react-redux';
-    import translate from './common/react-redux-translate';
+    import translate from 'react-redux-translate';
     
-    let T = translate('defaultLanguage', 'languageKeyInState', 'pathToI18nDirectory');
+    let T = translate('language', 'languageKeyInState', 'pathToI18nDirectoryFromProjectRoot');
     
     export default T = connect(state => ({languageKeyInState: state.languageKeyInState}))(T);
 
@@ -25,29 +25,39 @@ If pure string needed to insert as the function argument
     
     export const funcT = ({keys, insertions = []}) => <T keys={keys} insertions={insertions} />;
     
- Keep in mind
+Keep in mind
  
-    1. 'defaultLanguage' must correspond name of the JSON file in i18n directory.
+    1. 'language' must correspond name of the JSON file in i18n directory.
     
     2. 'languageKeyInState' must correspond name language key in the redux state.
     
-    3.  'pathToI18nDirectory' path form root of project (level of node-modules directory) 
+    3.  'pathToI18nDirectoryProjectRoot' path form root of the project (the same level where is the node-modules directory) 
      to 'i18n' directory.
     
    
  ### Instance usage
  
- Import T where needed
+Import T component where is needed
  
-    import T from 'pathToInstance';
+    import T from 'pathToYourTranslateInstance';
     
- Insert as React Component with required properties
+Insert as React Component with required properties
   
     <div><T keys="home.title" /><div>
   
- 'Keys' property can be either string with dot delimiter or array of string.
- If you would like to add some words to a translated string use 'insertions' property and add placeholders ${} to the source string. `insertions` must be an array of string.
- For example, for string in english `const home = { title: "Meet ${} and ${} at GitHub" }`
- <div><T keys="home.title" insertions={['Mary', 'John']} /><div> 
- You will get 'Meet Mary and John at GitHub'.
+'Keys' property can be either string with dot delimiter or array of string.
+
+If case you have some words in the text, which you will not translate you could use `insertions` property and add placeholders `${}` to the source string. 
+
+The `insertions` must be an array of string.
+
+For example, if you have `en-EN` JSON file with property
+
+      `"home":{"event": "Meet ${} and ${} at GitHub" }` 
+   
+and you set follow params to the `<T/>`component
+
+      `<div><T keys="home.event" insertions=['Mary', 'John'] /><div>`
+
+ you will get **"`Meet Mary and John at GitHub`"** string inside `div`. 
    
